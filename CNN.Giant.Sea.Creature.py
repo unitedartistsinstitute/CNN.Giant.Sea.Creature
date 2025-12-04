@@ -505,7 +505,7 @@
     </div>
 
     <script>
-        // Quiz data
+        
         const quizData = [
             {
                 question: "Where was the giant sea bug discovered?",
@@ -569,7 +569,7 @@
             }
         ];
 
-        // DOM elements
+        
         const introScreen = document.getElementById('intro-screen');
         const quizScreen = document.getElementById('quiz-screen');
         const resultsScreen = document.getElementById('results-screen');
@@ -591,7 +591,7 @@
         const timeDisplay = document.getElementById('time-display');
         const timeTaken = document.getElementById('time-taken');
 
-        // Quiz state
+        
         let currentQuestion = 0;
         let score = 0;
         let answeredQuestions = 0;
@@ -600,13 +600,13 @@
         let timerInterval;
         let secondsElapsed = 0;
 
-        // Initialize the quiz
+        
         function initQuiz() {
             totalQuestionsDisplay.textContent = quizData.length;
             maxScore.textContent = quizData.length;
         }
 
-        // Start the quiz
+        
         function startQuiz() {
             introScreen.classList.add('hidden');
             quizScreen.classList.remove('hidden');
@@ -614,7 +614,7 @@
             startTimer();
         }
 
-        // Load a question
+        
         function loadQuestion() {
             answered = false;
             
@@ -626,18 +626,18 @@
             const question = quizData[currentQuestion];
             questionText.textContent = `${currentQuestion + 1}. ${question.question}`;
             
-            // Update progress indicators
+            
             currentQuestionDisplay.textContent = currentQuestion + 1;
             const progress = ((currentQuestion) / quizData.length) * 100;
             progressBarFill.style.width = `${progress}%`;
             progressPercentage.textContent = `${Math.round(progress)}%`;
 
-            // Clear previous options and feedback
+            
             optionsContainer.innerHTML = '';
             feedback.style.display = 'none';
             nextBtn.style.display = 'none';
 
-            // Add options with letters
+            
             const letters = ['A', 'B', 'C', 'D'];
             question.options.forEach((option, index) => {
                 const optionElement = document.createElement('label');
@@ -651,13 +651,13 @@
                 `;
                 optionsContainer.appendChild(optionElement);
 
-                // Add event listener to option
+                
                 const radioButton = optionElement.querySelector('input');
                 radioButton.addEventListener('change', () => checkAnswer(option, optionElement));
             });
         }
 
-        // Check the answer
+        
         function checkAnswer(selectedOption, selectedLabel) {
             if (answered) return;
             
@@ -668,7 +668,7 @@
             const correctAnswer = question.answer;
             const isCorrect = selectedOption === correctAnswer;
             
-            // Mark the selected option
+            
             if (isCorrect) {
                 selectedLabel.classList.add('correct');
                 score++;
@@ -678,7 +678,7 @@
             } else {
                 selectedLabel.classList.add('incorrect');
                 
-                // Find and mark the correct option
+                
                 const options = document.querySelectorAll('.option-label');
                 options.forEach(option => {
                     const optionValue = option.querySelector('input').value;
@@ -693,13 +693,13 @@
             
             feedback.style.display = 'block';
             
-            // Disable all options
+            
             const options = document.querySelectorAll('.option-radio');
             options.forEach(option => {
                 option.disabled = true;
             });
             
-            // Show next button only if it's not the last question
+            
             if (currentQuestion < quizData.length - 1) {
                 nextBtn.style.display = 'block';
             } else {
@@ -710,20 +710,20 @@
             }
         }
 
-        // Move to the next question
+        
         function nextQuestion() {
             currentQuestion++;
             loadQuestion();
         }
 
-        // Format time (seconds to MM:SS)
+        
         function formatTime(seconds) {
             const minutes = Math.floor(seconds / 60);
             const remainingSeconds = seconds % 60;
             return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
         }
 
-        // Start the timer
+        
         function startTimer() {
             startTime = new Date();
             secondsElapsed = 0;
@@ -734,33 +734,33 @@
             }, 1000);
         }
 
-        // Stop the timer
+        
         function stopTimer() {
             clearInterval(timerInterval);
             return secondsElapsed;
         }
 
-        // End the quiz and show results
+        
         function endQuiz() {
-            // Stop the timer
+            
             const totalTime = stopTimer();
             
-            // Hide quiz screen and show results screen
+            
             quizScreen.classList.add('hidden');
             resultsScreen.classList.remove('hidden');
             
-            // Update results
+            
             finalScore.textContent = score;
             correctAnswers.textContent = score;
             
-            // Calculate accuracy
+            
             const accuracy = (score / quizData.length) * 100;
             accuracyPercentage.textContent = `${Math.round(accuracy)}%`;
             
-            // Set time taken
+            
             timeTaken.textContent = formatTime(totalTime);
             
-            // Set result message based on score
+            
             if (score === quizData.length) {
                 resultMessage.textContent = "Perfect! You're a giant sea bug expert!";
             } else if (score >= quizData.length * 0.8) {
@@ -774,24 +774,24 @@
             }
         }
 
-        // Restart the quiz
+        
         function restartQuiz() {
             // Reset quiz state
             currentQuestion = 0;
             score = 0;
             answeredQuestions = 0;
             
-            // Hide results screen and show intro screen
+            
             resultsScreen.classList.add('hidden');
             introScreen.classList.remove('hidden');
         }
 
-        // Event listeners
+        
         startBtn.addEventListener('click', startQuiz);
         nextBtn.addEventListener('click', nextQuestion);
         restartBtn.addEventListener('click', restartQuiz);
 
-        // Initialize the quiz
+        
         initQuiz();
     </script>
 </body>
